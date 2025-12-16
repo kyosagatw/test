@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <StorytellerDef ParentName="BaseStoryteller">
+        <defName>Ariadne</defName>
+        <label>『 艾莉亚 』</label>
+        <description>来自宇宙中某一个边缘世界的一国公主，从一无所有开始，她的国家在故事之中快速走向复兴。如今，她构筑方法也将传达到你的世界之中。在她的故事里会非常频繁地发生改变故事走向的事件，而非平淡的日常琐事。这既是让国家快速繁荣的机遇，亦或是让故事逐渐灭亡的成因。</description>
+        <portraitLarge>Storyteller/STORY_Aria</portraitLarge>
+        <!-- 大头像路径：Storyteller/STORY_Aria -->
+        <portraitTiny>Storyteller/STORY_Aria_2</portraitTiny>
+        <!-- 小头像路径：Storyteller/STORY_Aria_2 -->
+        <listOrder>52</listOrder>
+        <!-- 列表排序：52 -->
+        
+        <populationIntentFactorFromPopCurve>
+        <!-- 基于人口数的事件意图因子曲线 -->
+            <points>
+            <!-- 数据点 -->
+                <li>0, 8.0</li>
+                <!-- 人口0时，因子10.0 -->
+                <li>1, 8.0</li>
+                <!-- 人口1时，因子10.0 -->
+                <li>4, 8.0</li>
+                <!-- 人口4时，因子9.0 -->
+                <li>7, 8.0</li>
+                <!-- 人口7时，因子8.0 -->
+                <li>11, 7.0</li>
+                <!-- 人口11时，因子8.0 -->
+                <li>20, 6.0</li>
+                <!-- 人口20时，因子8.0 -->
+            </points>
+        </populationIntentFactorFromPopCurve>
+        
+        <populationIntentFactorFromPopAdaptDaysCurve>
+        <!-- 基于人口适应天数的事件意图因子曲线 -->
+            <points>
+            <!-- 数据点 -->
+                <li>( 0, 0)</li>
+                <!-- 适应天数0时，因子0 -->
+                <li>( 2, 1)</li>
+                <!-- 适应天数2时，因子1 -->
+            </points>
+        </populationIntentFactorFromPopAdaptDaysCurve>
+        
+        <pointsFactorFromDaysPassed>
+        <!-- 基于游戏天数的点数因子曲线 -->
+            <points>
+            <!-- 数据点 -->
+                <li>(5, 0.70)</li>
+                <!-- 第5天，因子0.70 -->
+                <li>(10, 1.00)</li>
+                <!-- 第10天，因子1.00 -->
+            </points>
+        </pointsFactorFromDaysPassed>
+        
+        <adaptDaysMin>-60</adaptDaysMin>
+        <!-- 最小适应天数：-60 -->
+        <adaptDaysMax>100</adaptDaysMax>
+        <!-- 最大适应天数：100 -->
+        <adaptDaysGameStartGraceDays>5</adaptDaysGameStartGraceDays>
+        <!-- 游戏开始宽限天数：5 -->
+        
+        <adaptDaysLossFromColonistLostByPostPopulation>
+        <!-- 基于人口数的殖民者损失适应天数损失曲线 -->
+            <points>
+            <!-- 数据点 -->
+                <li>( 0, 30)</li>
+                <!-- 人口0时，损失30天 -->
+                <!--  30 days at normal pops; lower at really high pop  -->
+                <!-- 正常人口时30天；高人口时减少 -->
+                <li>(11, 30)</li>
+                <!-- 人口11时，损失30天 -->
+                <li>(20, 20)</li>
+                <!-- 人口20时，损失20天 -->
+            </points>
+        </adaptDaysLossFromColonistLostByPostPopulation>
+        
+        <adaptDaysLossFromColonistViolentlyDownedByPopulation>
+        <!-- 基于人口数的殖民者暴力倒地适应天数损失曲线 -->
+            <points>
+            <!-- 数据点 -->
+                <li>(1, 8)</li>
+                <!-- 人口1时，损失8天 -->
+                <li>(2, 6)</li>
+                <!-- 人口2时，损失6天 -->
+                <li>(3, 6)</li>
+                <!-- 人口3时，损失6天 -->
+                <li>(11, 5)</li>
+                <!-- 人口11时，损失5天 -->
+                <li>(20, 3.5)</li>
+                <!-- 人口20时，损失3.5天 -->
+            </points>
+        </adaptDaysLossFromColonistViolentlyDownedByPopulation>
+        
+        <adaptDaysGrowthRateCurve>
+        <!-- 适应天数增长率曲线 -->
+            <points>
+            <!-- 数据点 -->
+                <li>(-30.01, 6)</li>
+                <!-- -30.01天时，增长率6 -->
+                <!--  under: 8.00  -->
+                <!-- 低于：8.00 -->
+                <li>(-30, 3)</li>
+                <!-- -30天时，增长率3 -->
+                <!--    -30: 3.00  -->
+                <!--    -30: 3.00  -->
+                <li>(-0.01, 3)</li>
+                <!-- -0.01天时，增长率3 -->
+                <li>(0, 1)</li>
+                <!-- 0天时，增长率1 -->
+                <!--      0: 1.00  -->
+                <!--      0: 1.00  -->
+                <li>(59.99, 1)</li>
+                <!-- 59.99天时，增长率1 -->
+                <li>(60, 0.5)</li>
+                <!-- 60天时，增长率0.5 -->
+                <!--     60: 0.50  -->
+                <!--     60: 0.50  -->
+                <li>(119.99, 0.5)</li>
+                <!-- 119.99天时，增长率0.5 -->
+                <li>(120, 0.25)</li>
+                <!-- 120天时，增长率0.25 -->
+                <!--   120: 0.25  -->
+                <!--   120: 0.25  -->
+            </points>
+        </adaptDaysGrowthRateCurve>
+        
+        <pointsFactorFromAdaptDays>
+        <!-- 基于适应天数的点数因子曲线 -->
+            <points>
+            <!-- 数据点 -->
+                <li>(-30, 0.40)</li>
+                <!-- 适应天数-30时，因子0.40 -->
+                <!--  recover in 10 days  -->
+                <!-- 10天内恢复 -->
+                <li>( 0, 0.80)</li>
+                <!-- 适应天数0时，因子0.80 -->
+                <!--  start at     0.80   -->
+                <!-- 开始于0.80 -->
+                <li>( 30, 1.00)</li>
+                <!-- 适应天数30时，因子1.00 -->
+                <!--  0.5 years to 1.00   -->
+                <!-- 0.5年到1.00 -->
+                <li>( 60, 1.20)</li>
+                <!-- 适应天数60时，因子1.20 -->
+                <!--  0.5 years to 1.20   -->
+                <!-- 0.5年到1.20 -->
+                <li>(120, 1.60)</li>
+                <!-- 适应天数120时，因子1.60 -->
+                <!--  2   years to 1.60   -->
+                <!-- 2年到1.60 -->
+                <li>(180, 2.00)</li>
+                <!-- 适应天数180时，因子2.00 -->
+                <!--  4   years to 2.00   -->
+                <!-- 4年到2.00 -->
+            </points>
+        </pointsFactorFromAdaptDays>
+
+        <comps>
+            <!--  Home all  -->
+            <li Class="StorytellerCompProperties_RandomMain">
+                <allowedTargetTags>
+                    <li>Map_PlayerHome</li>
+                </allowedTargetTags>
+                <minDaysPassed>0.5</minDaysPassed>
+                <!-- 最小经过天数：0.5 -->
+                <spaceMtbDayFactor>0.75</spaceMtbDayFactor>
+                <!-- 空间平均时间因子：0.75 -->
+                <spaceMinSpacingDays>0.75</spaceMinSpacingDays>
+                <!-- 空间最小间隔天数：0.75 -->
+                <mtbDays>0.35</mtbDays>
+                <!-- 事件平均发生天数：0.35 -->
+                <maxThreatBigIntervalDays>6</maxThreatBigIntervalDays>
+                <!-- 最大大型威胁间隔天数：6 -->
+                <minIncChancePopulationIntentFactor>0.2</minIncChancePopulationIntentFactor>
+                <!-- 最小事件几率人口意图因子：0.2 -->
+                <randomPointsFactorRange>0.5~1.5</randomPointsFactorRange>
+                <!-- 随机点数因子范围：0.5~1.5 -->
+                <skipThreatBigIfRaidBeacon>true</skipThreatBigIfRaidBeacon>
+                <!-- 如果有袭击信标则跳过大型威胁：是 -->
+                <categoryWeights>
+                <!-- 类别权重 -->
+                    <Misc>0.9</Misc>
+                    <!-- 杂项：0.9 -->
+                    <ThreatBig>1.9</ThreatBig>
+                    <!-- 大型威胁：1.9 -->
+                    <OrbitalVisitor>1.1</OrbitalVisitor>
+                    <!-- 轨道访客：1.1 -->
+                    <FactionArrival>2.4</FactionArrival>
+                    <!-- 派系到达：2.4 -->
+                    <ThreatSmall>0.4</ThreatSmall>
+                    <!-- 小型威胁：0.4 -->
+                    <ShipChunkDrop>0.22</ShipChunkDrop>
+                    <!-- 飞船碎片坠落：0.22 -->
+                </categoryWeights>
+            </li>
+            
+            <li Class="StorytellerCompProperties_Disease">
+            <!-- 疾病组件 -->
+                <category>DiseaseHuman</category>
+                <!-- 事件类别：人类疾病 -->
+                <minDaysPassed>0</minDaysPassed>
+                <!-- 最小经过天数：0 -->
+            </li>
+            
+            <li Class="StorytellerCompProperties_Disease">
+            <!-- 疾病组件 -->
+                <category>DiseaseAnimal</category>
+                <!-- 事件类别：动物疾病 -->
+                <minDaysPassed>0</minDaysPassed>
+                <!-- 最小经过天数：0 -->
+            </li>
+            
+            <!--  Home special threats  -->
+            <!-- 家园特殊威胁 -->
+            <li Class="StorytellerCompProperties_ThreatsGenerator">
+            <!-- 威胁生成器组件 -->
+                <allowedTargetTags>
+                <!-- 允许的目标标签 -->
+                    <li>Map_RaidBeacon</li>
+                    <!-- 地图-袭击信标 -->
+                </allowedTargetTags>
+                <parms>
+                <!-- 参数 -->
+                    <allowedThreats>Raids</allowedThreats>
+                    <!-- 允许的威胁类型：袭击 -->
+                    <onDays>1.0</onDays>
+                    <!-- 开启天数：1.0 -->
+                    <offDays>0.5</offDays>
+                    <!-- 关闭天数：0.5 -->
+                    <minSpacingDays>0.04</minSpacingDays>
+                    <!-- 最小间隔天数：0.04 -->
+                    <numIncidentsRange>1~2</numIncidentsRange>
+                    <!-- 事件数量范围：1~2 -->
+                    <minThreatPoints>500</minThreatPoints>
+                    <!-- 最小威胁点数：500 -->
+                </parms>
+            </li>
+            
+            <!--  Ally/neutral interaction  -->
+            <!-- 盟友/中立交互 -->
+            <li Class="StorytellerCompProperties_FactionInteraction">
+            <!-- 派系交互组件 -->
+                <incident>RaidFriendly</incident>
+                <!-- 事件类型：友好袭击 -->
+                <baseIncidentsPerYear>10</baseIncidentsPerYear>
+                <!-- 每年基础事件数：10 -->
+                <minSpacingDays>0.4</minSpacingDays>
+                <!-- 最小间隔天数：0.4 -->
+                <fullAlliesOnly>true</fullAlliesOnly>
+                <!-- 仅完全盟友：是 -->
+                <minDanger>High</minDanger>
+                <!-- 最小危险等级：高 -->
+            </li>
+            
+            <!--  Caravan / temp map  -->
+            <!-- 商队/临时地图 -->
+            <li Class="StorytellerCompProperties_CategoryIndividualMTBByBiome">
+            <!-- 按生物群系的类别个体平均时间组件 -->
+                <category>Misc</category>
+                <!-- 事件类别：杂项 -->
+                <allowedTargetTags>
+                <!-- 允许的目标标签 -->
+                    <li>Caravan</li>
+                    <!-- 商队 -->
+                    <li>Map_TempIncident</li>
+                    <!-- 地图-临时事件 -->
+                </allowedTargetTags>
+            </li>
+            
+            <li Class="StorytellerCompProperties_CategoryIndividualMTBByBiome">
+            <!-- 按生物群系的类别个体平均时间组件 -->
+                <category>ThreatSmall</category>
+                <!-- 事件类别：小型威胁 -->
+                <applyCaravanVisibility>true</applyCaravanVisibility>
+                <!-- 应用商队可见性：是 -->
+                <allowedTargetTags>
+                <!-- 允许的目标标签 -->
+                    <li>Caravan</li>
+                    <!-- 商队 -->
+                    <li>Map_TempIncident</li>
+                    <!-- 地图-临时事件 -->
+                </allowedTargetTags>
+            </li>
+            
+            <li Class="StorytellerCompProperties_CategoryIndividualMTBByBiome">
+            <!-- 按生物群系的类别个体平均时间组件 -->
+                <category>ThreatBig</category>
+                <!-- 事件类别：大型威胁 -->
+                <applyCaravanVisibility>true</applyCaravanVisibility>
+                <!-- 应用商队可见性：是 -->
+                <allowedTargetTags>
+                <!-- 允许的目标标签 -->
+                    <li>Caravan</li>
+                    <!-- 商队 -->
+                    <li>Map_TempIncident</li>
+                    <!-- 地图-临时事件 -->
+                </allowedTargetTags>
+            </li>
+            
+            <!--  Quests - non-Royalty  -->
+            <!-- 任务 - 非皇权DLC -->
+            <li Class="StorytellerCompProperties_RandomQuest">
+            <!-- 随机任务组件 -->
+                <category>GiveQuest</category>
+                <!-- 事件类别：给予任务 -->
+                <allowedTargetTags>
+                <!-- 允许的目标标签 -->
+                    <li>World</li>
+                    <!-- 世界 -->
+                </allowedTargetTags>
+                <onDays>3</onDays>
+                <!-- 开启天数：3 -->
+                <numIncidentsRange>1</numIncidentsRange>
+                <!-- 事件数量范围：1 -->
+                <acceptFractionByDaysPassedCurve>
+                <!-- 接受率随天数变化曲线 -->
+                    <points>
+                    <!-- 数据点 -->
+                        <li>(8, 0)</li>
+                        <!-- 第8天，接受率0 -->
+                        <li>(15, 1)</li>
+                        <!-- 第15天，接受率1 -->
+                    </points>
+                </acceptFractionByDaysPassedCurve>
+                <minSpacingDays>0.2</minSpacingDays>
+                <!-- 最小间隔天数：0.2 -->
+                <disableIfAnyModActive>
+                <!-- 如果任何模组激活则禁用 -->
+                    <li>Ludeon.RimWorld.Royalty</li>
+                    <!-- 皇权DLC -->
+                </disableIfAnyModActive>
+            </li>
+            
+            <!--  Quests - Royalty  -->
+            <!-- 任务 - 皇权DLC -->
+            <li Class="StorytellerCompProperties_RandomQuest">
+            <!-- 随机任务组件 -->
+                <category>GiveQuest</category>
+                <!-- 事件类别：给予任务 -->
+                <allowedTargetTags>
+                <!-- 允许的目标标签 -->
+                    <li>World</li>
+                    <!-- 世界 -->
+                </allowedTargetTags>
+                <onDays>3</onDays>
+                <!-- 开启天数：3 -->
+                <numIncidentsRange>1~3</numIncidentsRange>
+                <!-- 事件数量范围：1~3 -->
+                <acceptFractionByDaysPassedCurve>
+                <!-- 接受率随天数变化曲线 -->
+                    <points>
+                    <!-- 数据点 -->
+                        <li>(8, 0)</li>
+                        <!-- 第8天，接受率0 -->
+                        <li>(15, 1)</li>
+                        <!-- 第15天，接受率1 -->
+                    </points>
+                </acceptFractionByDaysPassedCurve>
+                <minSpacingDays>0.2</minSpacingDays>
+                <!-- 最小间隔天数：0.2 -->
+                <enableIfAnyModActive>
+                <!-- 如果任何模组激活则启用 -->
+                    <li>Ludeon.RimWorld.Royalty</li>
+                    <!-- 皇权DLC -->
+                </enableIfAnyModActive>
+            </li>
+            
+            <!--  World misc incidents -->
+            <!-- 世界杂项事件 -->
+            <li Class="StorytellerCompProperties_CategoryMTB">
+            <!-- 类别平均时间组件 -->
+                <category>Misc</category>
+                <!-- 事件类别：杂项 -->
+                <allowedTargetTags>
+                <!-- 允许的目标标签 -->
+                    <li>World</li>
+                    <!-- 世界 -->
+                </allowedTargetTags>
+                <minDaysPassed>1</minDaysPassed>
+                <!-- 最小经过天数：1 -->
+                <mtbDays>15</mtbDays>
+                <!-- 平均发生天数：15 -->
+            </li>
+            
+            <!--  Triggered  -->
+            <!-- 触发事件 -->
+            <li Class="StorytellerCompProperties_Triggered">
+            <!-- 触发组件 -->
+                <incident>StrangerInBlackJoin</incident>
+                <!-- 事件类型：黑衣人加入 -->
+                <delayTicks>520</delayTicks>
+                <!-- 延迟刻数：520 -->
+            </li>
+        </comps>
+    </StorytellerDef>
+</Defs>
