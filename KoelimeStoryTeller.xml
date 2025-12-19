@@ -15,20 +15,15 @@
 
         <!-- 故事敘述者的描述文字（選單中顯示） -->
         <description>
-            在古老的傳說中，聖母龍是守護生命與希望的象徵。
-            她以溫柔而堅定的目光注視著世界，見證文明的興衰、族群的誕生與消逝。
-            如今，她將以敘事者的身份，講述珂莉姆的旅程——
-            那位背負古龍血脈、從孤獨中走向命運的少女。
-            在她的故事裡，試煉與恩賜並存；危機與奇蹟交織。
-            她不會讓你沉溺於平淡，也不會讓你被絕望吞噬。
-            她會以龍之慈愛與智慧，引導你的故事走向未知的未來。
+在古老的傳說中，聖母龍是守護生命與希望的象徵。她以溫柔而堅定的目光注視著世界，見證文明的興衰、族群的誕生與消逝。如今，她將以敘事者的身份，講述珂莉姆的旅程——
+那位背負古龍血脈、從孤獨中走向命運的少女。在她的故事裡，試煉與恩賜並存；危機與奇蹟交織。她不會讓你沉溺於平淡，也不會讓你被絕望吞噬。她會以龍之慈愛與智慧，引導你的故事走向未知的未來。
         </description>
 
         <!-- 大頭像（選單左側顯示） -->
-        <portraitLarge>Storyteller/Koelime_SaintMother</portraitLarge>
+        <portraitLarge>Storyteller/Koelime_SaintMother512</portraitLarge>
 
         <!-- 小頭像（遊戲內右上角顯示） -->
-        <portraitTiny>Storyteller/Koelime_SaintMother_Tiny</portraitTiny>
+        <portraitTiny>Storyteller/Koelime_SaintMother128</portraitTiny>
 
         <!-- 故事敘述者在選單中的排序位置（數字越小越前面） -->
         <listOrder>53</listOrder>
@@ -110,509 +105,252 @@
             </points>
         </pointsFactorFromAdaptDays>
 
+    <comps>
         <!-- ============================= -->
         <!--   A：珂莉姆 Storyteller 威脅節奏（修正版） -->
         <!--   只控制入侵與連續威脅，不含一般小事件 -->
         <!-- ============================= -->
 
         <!-- 小威脅（ThreatSmall）：30 天前禁止 -->
-        <li Class="StorytellerCompProperties_OnOffCycle">
-            <incident>ThreatSmall</incident>
-            <onDays>1</onDays>
-            <offDays>14</offDays>
-            <minDaysPassed>30</minDaysPassed>
-            <minThreatPoints>50</minThreatPoints>
-        </li>
+<!-- ========================= -->
+<!--      ThreatSmall 小威脅     -->
+<!-- ========================= -->
+<li Class="StorytellerCompProperties_OnOffCycle">
+  <category>ThreatSmall</category>
 
-        <!-- 大威脅（ThreatBig）：60 天前禁止 -->
-        <li Class="StorytellerCompProperties_OnOffCycle">
-            <incident>ThreatBig</incident>
-            <onDays>2</onDays>
-            <offDays>10</offDays>
-            <minDaysPassed>60</minDaysPassed>
-            <minThreatPoints>250</minThreatPoints>
-        </li>
+  <!-- 前 15 天不觸發小襲擊 -->
+  <minDaysPassed>15</minDaysPassed>
 
-        <!-- 小威脅：60 天後頻率提高 -->
-        <li Class="StorytellerCompProperties_OnOffCycle">
-            <incident>ThreatSmall</incident>
-            <onDays>2</onDays>
-            <offDays>8</offDays>
-            <minDaysPassed>60</minDaysPassed>
-            <minThreatPoints>120</minThreatPoints>
-        </li>
+  <!-- 小襲擊週期：3 天活躍 + 4 天冷卻 = 7 天一輪 -->
+  <onDays>3</onDays>
+  <offDays>4</offDays>
 
-        <!-- 大威脅：90 天後開始浮現 -->
-        <li Class="StorytellerCompProperties_OnOffCycle">
-            <incident>ThreatBig</incident>
-            <onDays>2</onDays>
-            <offDays>15</offDays>
-            <minDaysPassed>90</minDaysPassed>
-            <minThreatPoints>300</minThreatPoints>
-        </li>
+  <!-- 小襲擊至少間隔 2 天 -->
+  <minSpacingDays>2</minSpacingDays>
 
-        <!-- 小威脅：120 天後成為日常 -->
-        <li Class="StorytellerCompProperties_OnOffCycle">
-            <incident>ThreatSmall</incident>
-            <onDays>2</onDays>
-            <offDays>6</offDays>
-            <minDaysPassed>120</minDaysPassed>
-            <minThreatPoints>200</minThreatPoints>
-        </li>
+  <!-- 每次活躍期觸發 1 次 -->
+  <numIncidentsRange>1</numIncidentsRange>
 
-        <!-- 大威脅：120 天後穩定出現 -->
-        <li Class="StorytellerCompProperties_OnOffCycle">
-            <incident>ThreatBig</incident>
-            <onDays>3</onDays>
-            <offDays>15</offDays>
-            <minDaysPassed>120</minDaysPassed>
-            <minThreatPoints>400</minThreatPoints>
-        </li>
+  <!-- 威脅點數曲線：100=0 → 800=1 → 1200=0 -->
+  <acceptPercentFactorPerThreatPointsCurve>
+    <points>
+      <li>(100, 0)</li>
+      <li>(800, 1)</li>
+      <li>(1200, 0)</li>
+    </points>
+  </acceptPercentFactorPerThreatPointsCurve>
+</li>
 
-        <!-- 連續威脅（ThreatsGenerator）：120 天後啟動 -->
-        <li Class="StorytellerCompProperties_ThreatsGenerator">
-            <onDays>3</onDays>
-            <offDays>12</offDays>
-            <minDaysPassed>120</minDaysPassed>
-            <minThreatPoints>500</minThreatPoints>
-        </li>
+<!-- ========================= -->
+<!--      ThreatBig 大威脅      -->
+<!-- ========================= -->
 
-        <!-- ============================= -->
-        <!--   B：前 30 天事件池（部落生活體驗） -->
-        <!--   不新增 tag，只用現有 category -->
-        <!-- ============================= -->
+<li Class="StorytellerCompProperties_OnOffCycle">
+  <category>ThreatBig</category>
 
-        <!-- 1. Misc（雜項：加入、靈感、小驚喜） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Misc</category>
-            <mtbDays>5</mtbDays>
-            <minDaysPassed>0</minDaysPassed>
-        </li>
+  <!-- 前 90 天不觸發大襲擊 -->
+  <minDaysPassed>90</minDaysPassed>
 
-        <!-- 2. Visitor（部落旅人來看你過日子） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Visitor</category>
-            <mtbDays>10</mtbDays>
-            <minDaysPassed>0</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-            </factionTechLevelsAllowed>
-        </li>
+  <!-- 大襲擊週期：5 天活躍 + 10 天冷卻 = 15 天一輪 -->
+  <onDays>5</onDays>
+  <offDays>10</offDays>
 
-        <!-- 3. Caravan（部落商隊） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>TraderCaravanArrival</category>
-            <mtbDays>14</mtbDays>
-            <minDaysPassed>10</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-            </factionTechLevelsAllowed>
-        </li>
+  <!-- 大襲擊至少間隔 5 天 -->
+  <minSpacingDays>5</minSpacingDays>
 
-        <!-- 4. Weather（天氣變化，但不強塞） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Weather</category>
-            <mtbDays>14</mtbDays>
-            <minDaysPassed>0</minDaysPassed>
-        </li>
+  <!-- 每次活躍期觸發 1 次 -->
+  <numIncidentsRange>1</numIncidentsRange>
 
-        <!-- 5. Animal（動物相關，部落生活感強） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Animal</category>
-            <mtbDays>7</mtbDays>
-            <minDaysPassed>0</minDaysPassed>
-        </li>
+  <!-- 威脅點數曲線：800=0 → 1600=1 -->
+  <acceptPercentFactorPerThreatPointsCurve>
+    <points>
+      <li>(800, 0)</li>
+      <li>(1600, 1)</li>
+    </points>
+  </acceptPercentFactorPerThreatPointsCurve>
+</li>
 
+<!-- ========================= -->
+<!--   ThreatsGenerator 連續威脅 -->
+<!-- ========================= -->
 
-        <!-- ============================= -->
-        <!--   B2：30～60 天事件池（自然壓力期） -->
-        <!-- ============================= -->
+<li Class="StorytellerCompProperties_ThreatsGenerator">
+  <allowedTargetTags>
+    <li>Map_RaidBeacon</li>
+  </allowedTargetTags>
 
-        <!-- 1. Misc（雜項：加入、靈感、小任務） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Misc</category>
-            <mtbDays>5</mtbDays>
-            <minDaysPassed>30</minDaysPassed>
-        </li>
+  <parms>
+    <allowedThreats>Raids</allowedThreats>
 
-        <!-- 2. Visitor（部落旅人） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Visitor</category>
-            <mtbDays>10</mtbDays>
-            <minDaysPassed>30</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-            </factionTechLevelsAllowed>
-        </li>
+    <!-- 活躍期 1 天 -->
+    <onDays>1.0</onDays>
 
-        <!-- 3. Caravan（部落商隊） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>TraderCaravanArrival</category>
-            <mtbDays>12</mtbDays>
-            <minDaysPassed>30</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-            </factionTechLevelsAllowed>
-        </li>
+    <!-- 冷卻期 1 天 -->
+    <offDays>1.0</offDays>
 
-        <!-- 4. Weather（自然壓力：稍微強一點） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Weather</category>
-            <mtbDays>14</mtbDays>
-            <minDaysPassed>30</minDaysPassed>
-        </li>
+    <!-- 最小間隔 0.4 天（避免連續轟炸） -->
+    <minSpacingDays>0.4</minSpacingDays>
 
-        <!-- 5. Animal（動物事件：稍微危險一點） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Animal</category>
-            <mtbDays>7</mtbDays>
-            <minDaysPassed>30</minDaysPassed>
-        </li>
+    <!-- 每次活躍期只觸發 1 次 -->
+    <numIncidentsRange>1</numIncidentsRange>
+<minThreatPoints>600</minThreatPoints>
+  </parms>
+</li>
 
-        <!-- ============================= -->
-        <!--   B3：60～120 天事件池（中世紀前期） -->
-        <!-- ============================= -->
+<li Class="StorytellerCompProperties_RandomMain">
+  <allowedTargetTags>
+    <li>Map_PlayerHome</li>
+  </allowedTargetTags>
 
-        <!-- 1. Misc（雜項：靈感、小任務、野人事件） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Misc</category>
-            <mtbDays>5</mtbDays>
-            <minDaysPassed>60</minDaysPassed>
-        </li>
+  <minDaysPassed>7</minDaysPassed>
+  <mtbDays>3.5</mtbDays>
+  <maxThreatBigIntervalDays>30</maxThreatBigIntervalDays>
 
-        <!-- 2. Visitor（訪客：中世紀旅人開始出現） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Visitor</category>
-            <mtbDays>9</mtbDays>
-            <minDaysPassed>60</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-                <li>Medieval</li>
-            </factionTechLevelsAllowed>
-        </li>
+  <minIncChancePopulationIntentFactor>0.2</minIncChancePopulationIntentFactor>
+  <randomPointsFactorRange>0.8~1.2</randomPointsFactorRange>
+  <skipThreatBigIfRaidBeacon>false</skipThreatBigIfRaidBeacon>
 
-        <!-- 3. Caravan（商隊：中世紀商隊開始出現） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>TraderCaravanArrival</category>
-            <mtbDays>10</mtbDays>
-            <minDaysPassed>60</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-                <li>Medieval</li>
-            </factionTechLevelsAllowed>
-        </li>
+  <categoryWeights>
+    <Misc>8.0</Misc>
+    <ThreatBig>0</ThreatBig>
+    <OrbitalVisitor>0</OrbitalVisitor>
+    <FactionArrival>4</FactionArrival>
+    <ThreatSmall>2</ThreatSmall>
+    <ShipChunkDrop>0</ShipChunkDrop>
+  </categoryWeights>
+</li>
 
-        <!-- 4. Weather（天氣壓力增加） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Weather</category>
-            <mtbDays>14</mtbDays>
-            <minDaysPassed>60</minDaysPassed>
-        </li>
+<li Class="StorytellerCompProperties_CategoryMTB">
+  <category>Misc</category>
+  <allowedTargetTags>
+    <li>Map_PlayerHome</li>
+  </allowedTargetTags>
+  <minDaysPassed>7</minDaysPassed>
+  <mtbDays>5</mtbDays>
+</li>
 
-        <!-- 5. Animal（動物事件：更危險） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Animal</category>
-            <mtbDays>7</mtbDays>
-            <minDaysPassed>60</minDaysPassed>
-        </li>
+<li Class="StorytellerCompProperties_ShipChunkDrop"/>
 
-        <!-- ============================= -->
-        <!--   B4：120～240 天事件池（中世紀正式期） -->
-        <!-- ============================= -->
+<li Class="StorytellerCompProperties_Disease">
+  <category>DiseaseHuman</category>
+  <minDaysPassed>30</minDaysPassed>
+</li>
 
-        <!-- 1. Misc（靈感、小任務、野人事件） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Misc</category>
-            <mtbDays>4</mtbDays>
-            <minDaysPassed>120</minDaysPassed>
-        </li>
+<li Class="StorytellerCompProperties_Disease">
+  <category>DiseaseAnimal</category>
+  <minDaysPassed>15</minDaysPassed>
+</li>
 
-        <!-- 2. Visitor（中世紀旅人主力） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Visitor</category>
-            <mtbDays>8</mtbDays>
-            <minDaysPassed>120</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-                <li>Medieval</li>
-            </factionTechLevelsAllowed>
-        </li>
+<li Class="StorytellerCompProperties_FactionInteraction">
+  <incident>RaidFriendly</incident>
+  <baseIncidentsPerYear>12</baseIncidentsPerYear>
+  <minSpacingDays>1</minSpacingDays>
+  <fullAlliesOnly>true</fullAlliesOnly>
+  <minDanger>High</minDanger>
+</li>
 
-        <!-- 3. Caravan（中世紀商隊主力） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>TraderCaravanArrival</category>
-            <mtbDays>8</mtbDays>
-            <minDaysPassed>120</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-                <li>Medieval</li>
-            </factionTechLevelsAllowed>
-        </li>
+<li Class="StorytellerCompProperties_FactionInteraction">
+  <incident>TraderCaravanArrival</incident>
+  <minDaysPassed>15</minDaysPassed>
+  <baseIncidentsPerYear>12</baseIncidentsPerYear>
+  <minSpacingDays>3</minSpacingDays>
+  <allowedTargetTags>
+    <li>Map_PlayerHome</li>
+  </allowedTargetTags>
+</li>
 
-        <!-- 4. Weather（正式中世紀更嚴苛） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Weather</category>
-            <mtbDays>14</mtbDays>
-            <minDaysPassed>120</minDaysPassed>
-        </li>
+<li Class="StorytellerCompProperties_FactionInteraction">
+  <incident>VisitorGroup</incident>
+  <minDaysPassed>15</minDaysPassed>
+  <baseIncidentsPerYear>12</baseIncidentsPerYear>
+  <minSpacingDays>3</minSpacingDays>
+  <allowedTargetTags>
+    <li>Map_PlayerHome</li>
+  </allowedTargetTags>
+</li>
 
-        <!-- 5. Animal（動物事件：更危險、更頻繁） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Animal</category>
-            <mtbDays>7</mtbDays>
-            <minDaysPassed>120</minDaysPassed>
-        </li>
+<li Class="StorytellerCompProperties_FactionInteraction">
+  <incident>TravelerGroup</incident>
+  <minDaysPassed>7</minDaysPassed>
+  <baseIncidentsPerYear>12</baseIncidentsPerYear>
+  <minSpacingDays>2</minSpacingDays>
+  <allowedTargetTags>
+    <li>Map_PlayerHome</li>
+  </allowedTargetTags>
+</li>
 
-        <!-- ============================= -->
-        <!--   B5：240 天後事件池（火槍時代） -->
-        <!--   保留中世紀與部落事件（時代交疊） -->
-        <!-- ============================= -->
+      <!-- Caravan / temp map -->
+      <li Class="StorytellerCompProperties_CategoryIndividualMTBByBiome">
+        <category>Misc</category>
+        <allowedTargetTags>
+          <li>Caravan</li>
+          <li>Map_TempIncident</li>
+        </allowedTargetTags>
+      </li>
+      <li Class="StorytellerCompProperties_CategoryIndividualMTBByBiome">
+        <category>ThreatSmall</category>
+        <applyCaravanVisibility>true</applyCaravanVisibility>
+        <allowedTargetTags>
+          <li>Caravan</li>
+          <li>Map_TempIncident</li>
+        </allowedTargetTags>
+      </li>
+      <li Class="StorytellerCompProperties_CategoryIndividualMTBByBiome">
+        <category>ThreatBig</category>
+        <applyCaravanVisibility>true</applyCaravanVisibility>
+        <allowedTargetTags>
+          <li>Caravan</li>
+          <li>Map_TempIncident</li>
+        </allowedTargetTags>
+      </li>
 
-        <!-- 1. Misc（雜項：靈感、宗教事件、小任務） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Misc</category>
-            <mtbDays>3</mtbDays>
-            <minDaysPassed>240</minDaysPassed>
-        </li>
+<li Class="StorytellerCompProperties_RandomQuest">
+  <category>GiveQuest</category>
+  <allowedTargetTags>
+    <li>World</li>
+  </allowedTargetTags>
+  <onDays>10</onDays>
+  <numIncidentsRange>1</numIncidentsRange>
+  <acceptFractionByDaysPassedCurve>
+    <points>
+      <li>(7, 0)</li>
+      <li>(14, 1)</li>
+    </points>
+  </acceptFractionByDaysPassedCurve>
+  <minSpacingDays>3</minSpacingDays>
+  <disableIfAnyModActive>
+    <li>Ludeon.RimWorld.Royalty</li>
+  </disableIfAnyModActive>
+</li>
 
-        <!-- 2. Visitor（訪客：火槍、中世紀、部落三者交疊） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Visitor</category>
-            <mtbDays>7</mtbDays>
-            <minDaysPassed>240</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-                <li>Medieval</li>
-                <li>Industrial</li>
-            </factionTechLevelsAllowed>
-        </li>
+<li Class="StorytellerCompProperties_RandomQuest">
+  <category>GiveQuest</category>
+  <allowedTargetTags>
+    <li>World</li>
+  </allowedTargetTags>
+  <onDays>7</onDays>
+  <numIncidentsRange>1</numIncidentsRange>
+  <acceptFractionByDaysPassedCurve>
+    <points>
+      <li>(7, 0)</li>
+      <li>(14, 1)</li>
+    </points>
+  </acceptFractionByDaysPassedCurve>
+  <minSpacingDays>3</minSpacingDays>
+  <enableIfAnyModActive>
+    <li>Ludeon.RimWorld.Royalty</li>
+  </enableIfAnyModActive>
+</li>
 
-        <!-- 3. Caravan（商隊：火槍商隊主力，中世紀次之） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>TraderCaravanArrival</category>
-            <mtbDays>7</mtbDays>
-            <minDaysPassed>240</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-                <li>Medieval</li>
-                <li>Industrial</li>
-            </factionTechLevelsAllowed>
-        </li>
-
-        <!-- 4. Weather（天氣壓力更強） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Weather</category>
-            <mtbDays>14</mtbDays>
-            <minDaysPassed>240</minDaysPassed>
-        </li>
-
-        <!-- 5. Animal（動物事件：比例下降但仍存在） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Animal</category>
-            <mtbDays>7</mtbDays>
-            <minDaysPassed>240</minDaysPassed>
-        </li>
-
-        <!-- ============================= -->
-        <!--   Q1：0～30 天任務池（部落生活） -->
-        <!-- ============================= -->
-
-        <!-- 1. Misc 任務（自然、小型事件、野人、動物） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Misc</category>
-            <mtbDays>3</mtbDays>
-            <minDaysPassed>0</minDaysPassed>
-        </li>
-
-        <!-- 2. Visitor 任務（部落旅人） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Visitor</category>
-            <mtbDays>11</mtbDays>
-            <minDaysPassed>0</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-            </factionTechLevelsAllowed>
-        </li>
-
-        <!-- 3. Caravan 任務（部落商隊） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>TraderCaravanArrival</category>
-            <mtbDays>15</mtbDays>
-            <minDaysPassed>10</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-            </factionTechLevelsAllowed>
-        </li>
-
-        <!-- 4. Animal 任務（動物事件） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Animal</category>
-            <mtbDays>7</mtbDays>
-            <minDaysPassed>0</minDaysPassed>
-        </li>
-        
-        <!-- ============================= -->
-        <!--   Q2：30～60 天任務池（自然壓力期） -->
-        <!-- ============================= -->
-
-        <!-- 1. Misc 任務（自然、小型事件、野人、動物） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Misc</category>
-            <mtbDays>3</mtbDays>
-            <minDaysPassed>30</minDaysPassed>
-        </li>
-
-        <!-- 2. Visitor 任務（部落旅人） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Visitor</category>
-            <mtbDays>10</mtbDays>
-            <minDaysPassed>30</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-            </factionTechLevelsAllowed>
-        </li>
-
-        <!-- 3. Caravan 任務（部落商隊） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>TraderCaravanArrival</category>
-            <mtbDays>13</mtbDays>
-            <minDaysPassed>30</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-            </factionTechLevelsAllowed>
-        </li>
-
-        <!-- 4. Animal 任務（動物事件） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Animal</category>
-            <mtbDays>7</mtbDays>
-            <minDaysPassed>30</minDaysPassed>
-        </li>        
-
-        <!-- ============================= -->
-        <!--   Q3：60～120 天任務池（中世紀前期） -->
-        <!-- ============================= -->
-
-        <!-- 1. Misc 任務（自然、野人、動物、小型事件） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Misc</category>
-            <mtbDays>3</mtbDays>
-            <minDaysPassed>60</minDaysPassed>
-        </li>
-
-        <!-- 2. Visitor 任務（部落 + 中世紀旅人） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Visitor</category>
-            <mtbDays>9</mtbDays>
-            <minDaysPassed>60</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-                <li>Medieval</li>
-            </factionTechLevelsAllowed>
-        </li>
-
-        <!-- 3. Caravan 任務（部落 + 中世紀商隊） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>TraderCaravanArrival</category>
-            <mtbDays>11</mtbDays>
-            <minDaysPassed>60</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-                <li>Medieval</li>
-            </factionTechLevelsAllowed>
-        </li>
-
-        <!-- 4. Animal 任務（動物事件） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Animal</category>
-            <mtbDays>7</mtbDays>
-            <minDaysPassed>60</minDaysPassed>
-        </li>
-
-        <!-- ============================= -->
-        <!--   Q4：120～240 天任務池（正式中世紀） -->
-        <!-- ============================= -->
-
-        <!-- 1. Misc 任務（自然、野人、動物、小型事件、中世紀宗教任務） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Misc</category>
-            <mtbDays>3</mtbDays>
-            <minDaysPassed>120</minDaysPassed>
-        </li>
-
-        <!-- 2. Visitor 任務（部落 + 中世紀旅人） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Visitor</category>
-            <mtbDays>8</mtbDays>
-            <minDaysPassed>120</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-                <li>Medieval</li>
-            </factionTechLevelsAllowed>
-        </li>
-
-        <!-- 3. Caravan 任務（部落 + 中世紀商隊） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>TraderCaravanArrival</category>
-            <mtbDays>9</mtbDays>
-            <minDaysPassed>120</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-                <li>Medieval</li>
-            </factionTechLevelsAllowed>
-        </li>
-
-        <!-- 4. Animal 任務（動物事件） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Animal</category>
-            <mtbDays>7</mtbDays>
-            <minDaysPassed>120</minDaysPassed>
-        </li>
-
-        <!-- ============================= -->
-        <!--   Q5：240 天後任務池（火槍時代） -->
-        <!--   中世紀與部落任務仍然存在（時代交疊） -->
-        <!-- ============================= -->
-
-        <!-- 1. Misc 任務（自然、野人、動物、小型事件、中世紀宗教任務） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Misc</category>
-            <mtbDays>3</mtbDays>
-            <minDaysPassed>240</minDaysPassed>
-        </li>
-
-        <!-- 2. Visitor 任務（部落 + 中世紀 + 火槍旅人） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Visitor</category>
-            <mtbDays>7</mtbDays>
-            <minDaysPassed>240</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-                <li>Medieval</li>
-                <li>Industrial</li>
-            </factionTechLevelsAllowed>
-        </li>
-
-        <!-- 3. Caravan 任務（部落 + 中世紀 + 火槍商隊） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>TraderCaravanArrival</category>
-            <mtbDays>7</mtbDays>
-            <minDaysPassed>240</minDaysPassed>
-            <factionTechLevelsAllowed>
-                <li>Neolithic</li>
-                <li>Medieval</li>
-                <li>Industrial</li>
-            </factionTechLevelsAllowed>
-        </li>
-
-        <!-- 4. Animal 任務（動物事件） -->
-        <li Class="StorytellerCompProperties_CategoryMTB">
-            <category>Animal</category>
-            <mtbDays>7</mtbDays>
-            <minDaysPassed>240</minDaysPassed>
-        </li>
+<li Class="StorytellerCompProperties_CategoryMTB">
+  <category>Misc</category>
+  <allowedTargetTags>
+    <li>World</li>
+  </allowedTargetTags>
+  <minDaysPassed>3</minDaysPassed>
+  <mtbDays>7</mtbDays>
+</li>
 
     </comps>
-
     </StorytellerDef>
 </Defs>
