@@ -29,89 +29,145 @@
         <listOrder>53</listOrder>
 
 
-        <!-- ============================= -->
-        <!--   C-1：人口影響曲線（弱化版） -->
-        <!-- ============================= -->
+<populationIntentFactorFromPopCurve>
+    <!-- 「基於調整後人口數的事件意圖因子曲線」，它直接影響 新殖民者事件（例如流浪者加入、訪客留下、奴隸商隊出現） 的觸發率。-->
+    <points>
+        <li>0, 8.0</li>
+        <!-- 調整後人口=0時，因子8.0（人口極少，事件觸發率最高） -->
+        <li>3, 8.0</li>
+        <!-- 調整後人口=1時，因子8.0 -->
+        <li>6, 6.0</li>
+        <!-- 調整後人口=4時，因子2.0（人口增加，觸發率下降） -->
+        <li>9, 3.0</li>
+        <!-- 調整後人口=7時，因子0.35 -->
+        <li>12, 2.0</li>
+        <!-- 調整後人口=11時，因子0.0（事件幾乎不再觸發） -->
+        <li>24, 0.0</li>
+        <!-- 調整後人口=20時，因子-1.0（完全抑制新殖民者事件） -->
+    </points>
+</populationIntentFactorFromPopCurve>
 
-        <populationIntentFactorFromPopCurve>
-            <!-- 人口越多 → 威脅略微增加，但影響非常小 -->
-            <points>
-                <li>0, 1.0</li>     <!-- 0 人：完全不增加威脅 -->
-                <li>3, 1.0</li>     <!-- 3 人：部落開局，威脅不變 -->
-                <li>6, 1.1</li>     <!-- 6 人：微幅增加 -->
-                <li>10, 1.2</li>    <!-- 10 人：小幅增加 -->
-                <li>15, 1.3</li>    <!-- 15 人：中等增加 -->
-                <li>20, 1.4</li>    <!-- 20 人：略微增加 -->
-            </points>
-        </populationIntentFactorFromPopCurve>
+<populationIntentFactorFromPopAdaptDaysCurve>
+    <!-- 自上次獲得殖民者以來的天數（人口適應天數） 對事件觸發率的影響。 -->
+    <points>
+        <li>(0, 0)</li>
+        <!-- 適應天數=0時，因子0（剛獲得殖民者，暫時不再觸發新事件） -->
+        <li>(7, 1)</li>
+        <!-- 適應天數≥8時，因子1（超過8天後，觸發率恢復正常） -->
+    </points>
+</populationIntentFactorFromPopAdaptDaysCurve>
 
+<pointsFactorFromDaysPassed>
+    <!-- 遊戲總經過天數 對事件觸發率的影響 -->
+    <points>
+        <li>(3, 0.70)</li>
+        <!-- 第5天，因子0.70（遊戲初期事件觸發率較低） -->
+        <li>(7, 1.00)</li>
+        <!-- 第10天，因子1.00（進入正常事件觸發率） -->
+    </points>
+</pointsFactorFromDaysPassed>
 
-        <!-- ============================= -->
-        <!--   C-2：人口適應曲線（前期保護） -->
-        <!-- ============================= -->
+<adaptDaysMin>-30</adaptDaysMin>
+<!-- 最小適應天數：-60（當殖民者死亡或暴力倒地時，系統會倒扣適應天數，讓遊戲更快觸發新殖民者事件來補充人力） -->
+<adaptDaysMax>60</adaptDaysMax>
+<!-- 最大適應天數：100 當殖民者長期沒有加入，適應天數會逐漸增加-->
+<adaptDaysGameStartGraceDays>7</adaptDaysGameStartGraceDays>
+<!-- 遊戲開始時的「寬限期」：5 -->
 
-        <populationIntentFactorFromPopAdaptDaysCurve>
-            <!-- 適應越高 → 威脅越低（前期保護） -->
-            <points>
-                <li>0, 1.0</li>     <!-- 第一天：正常 -->
-                <li>10, 0.8</li>    <!-- 10 天：降低威脅 -->
-                <li>30, 0.6</li>    <!-- 30 天：大幅降低威脅 -->
-                <li>60, 0.8</li>    <!-- 60 天：開始回升 -->
-                <li>120, 1.0</li>   <!-- 120 天：恢復正常 -->
-            </points>
-        </populationIntentFactorFromPopAdaptDaysCurve>
+<adaptDaysLossFromColonistLostByPostPopulation>
+    <!-- 當殖民者死亡時，人口適應天數會被倒扣多少，而倒扣的幅度取決於當前人口數。 -->
+    <points>
+        <li>(3, 20)</li>
+        <!-- 人口0時，損失30天 -->
+        <li>(12, 15)</li>
+        <!-- 人口11時，損失30天 -->
+        <li>(20, 10)</li>
+        <!-- 人口20時，損失20天（高人口時扣減較少） -->
+    </points>
+</adaptDaysLossFromColonistLostByPostPopulation>
 
+<adaptDaysLossFromColonistViolentlyDownedByPopulation>
+    <!-- 基於人口數的殖民者暴力倒地適應天數扣減曲線 殖民者在戰鬥或事故中被擊倒（失去行動能力），但還活著-->
+    <points>
+        <li>(1, 6)</li>
+        <!-- 人口1時，損失8天 -->
+        <li>(2, 6)</li>
+        <!-- 人口2時，損失6天 -->
+        <li>(3, 6)</li>
+        <!-- 人口3時，損失6天 -->
+        <li>(11, 4)</li>
+        <!-- 人口11時，損失5天 -->
+        <li>(20, 2)</li>
+        <!-- 人口20時，損失3.5天 -->
+    </points>
+</adaptDaysLossFromColonistViolentlyDownedByPopulation>
 
-        <!-- ============================= -->
-        <!--   C-3：天數影響曲線（主要威脅來源） -->
-        <!-- ============================= -->
+<adaptDaysGrowthRateCurve>
+    <!-- 適應天數增長率曲線（殖民者加入/損失後的恢復速度）- 人口適應天數（Population Adapt Days）：控制新殖民者事件的冷卻期 -->
+    <points>
+        <li>(-30.01, 6)</li>
+        <!-- -30.01天時，增長率6（殖民者剛死亡或倒地時，冷卻時間會以極快速度恢復，確保遊戲盡快補充人力） -->
+        <li>(-30, 3)</li>
+        <!-- -30天時，增長率3 -->
+        <li>(-0.01, 3)</li>
+        <!-- -0.01天時，增長率3 -->
+        <li>(0, 1)</li>
+        <!-- 0天時，增長率1（正常速度） -->
+        <li>(20, 0.9)</li>
+        <!-- 59.99天時，增長率1 -->
+        <li>(30, 0.8)</li>
+        <!-- 60天時，增長率0.5（長期穩定下降） -->
+        <li>(40, 0.7)</li>
+        <!-- 119.99天時，增長率0.5 -->
+        <li>(50, 0.6)</li>
+        <!-- 120天時，增長率0.25 -->
+    </points>
+</adaptDaysGrowthRateCurve>
 
-        <pointsFactorFromDaysPassed>
-            <points>
-                <li>0, 0.2</li>      <!-- 第 0 天：非常安全 -->
-                <li>30, 0.3</li>     <!-- 30 天：仍然安全 -->
-                <li>60, 0.6</li>     <!-- 60 天：開始有威脅 -->
-                <li>120, 1.0</li>    <!-- 120 天：正式中世紀 -->
-                <li>240, 1.2</li>    <!-- 240 天：火槍時代開始 -->
-                <li>400, 1.5</li>    <!-- 超後期：威脅略微上升 -->
-            </points>
-        </pointsFactorFromDaysPassed>
+<pointsFactorFromAdaptDays>
+    <!-- 基於適應天數的事件觸發因子曲線 剛加入殖民者時，觸發率偏低；隨著時間拉長，觸發率逐漸提升，確保長期孤立的殖民地仍能獲得補充-->
+    <points>
+        <li>(-30, 0.40)</li>
+        <!-- 適應天數-30時，因子0.40（殖民者損失後，事件觸發率降低） -->
+        <li>(0, 0.80)</li>
+        <!-- 適應天數0時，因子0.80（剛加入殖民者，觸發率偏低） -->
+        <li>(10, 1.00)</li>
+        <!-- 適應天數30時，因子1.00（恢復正常） -->
+        <li>(20, 1.20)</li>
+        <!-- 適應天數60時，因子1.20（觸發率提升） -->
+        <li>(30, 1.60)</li>
+        <!-- 適應天數120時，因子1.60（兩年後觸發率更高） -->
+        <li>(40, 2.00)</li>
+        <!-- 適應天數180時，因子2.00（四年後觸發率翻倍） -->
+    </points>
+</pointsFactorFromAdaptDays>
 
-
-        <!-- ============================= -->
-        <!--   C-4：適應度成長速度 -->
-        <!-- ============================= -->
-
-        <adaptDaysGrowthRateCurve>
-            <points>
-                <li>0, 1.2</li>     <!-- 前期適應度成長快（保護玩家） -->
-                <li>30, 1.0</li>
-                <li>60, 0.8</li>    <!-- 60 天後開始變慢 -->
-                <li>120, 0.6</li>   <!-- 中世紀時期：適應度影響變小 -->
-            </points>
-        </adaptDaysGrowthRateCurve>
-
-
-        <!-- ============================= -->
-        <!--   C-5：適應度影響威脅 -->
-        <!-- ============================= -->
-
-        <pointsFactorFromAdaptDays>
-            <points>
-                <li>0, 0.7</li>     <!-- 前期：適應度大幅降低威脅 -->
-                <li>30, 0.6</li>
-                <li>60, 0.8</li>    <!-- 60 天後開始回升 -->
-                <li>120, 1.0</li>   <!-- 中世紀：恢復正常 -->
-            </points>
-        </pointsFactorFromAdaptDays>
 
     <comps>
-        <!-- ============================= -->
-        <!--   A：珂莉姆 Storyteller 威脅節奏（修正版） -->
-        <!--   只控制入侵與連續威脅，不含一般小事件 -->
-        <!-- ============================= -->
+<li Class="StorytellerCompProperties_RandomMain">
+  <allowedTargetTags>
+    <li>Map_PlayerHome</li>
+  </allowedTargetTags>
 
-        <!-- 小威脅（ThreatSmall）：30 天前禁止 -->
+  <minDaysPassed>3</minDaysPassed>
+  <mtbDays>1</mtbDays>
+  <maxThreatBigIntervalDays>30</maxThreatBigIntervalDays>
+
+  <minIncChancePopulationIntentFactor>0.5</minIncChancePopulationIntentFactor>
+  <randomPointsFactorRange>0.8~1.2</randomPointsFactorRange>
+  <skipThreatBigIfRaidBeacon>false</skipThreatBigIfRaidBeacon>
+
+  <categoryWeights>
+    <Misc>6.0</Misc>
+    <ThreatBig>1</ThreatBig>
+    <OrbitalVisitor>0</OrbitalVisitor>
+    <FactionArrival>4</FactionArrival>
+    <ThreatSmall>2</ThreatSmall>
+    <ShipChunkDrop>1</ShipChunkDrop>
+  </categoryWeights>
+</li>
+
+
 <!-- ========================= -->
 <!--      ThreatSmall 小威脅     -->
 <!-- ========================= -->
@@ -144,7 +200,6 @@
 <!-- ========================= -->
 <!--      ThreatBig 大威脅      -->
 <!-- ========================= -->
-
 <li Class="StorytellerCompProperties_OnOffCycle">
   <category>ThreatBig</category>
 
@@ -173,7 +228,6 @@
 <!-- ========================= -->
 <!--   ThreatsGenerator 連續威脅 -->
 <!-- ========================= -->
-
 <li Class="StorytellerCompProperties_ThreatsGenerator">
   <allowedTargetTags>
     <li>Map_RaidBeacon</li>
@@ -197,36 +251,13 @@
   </parms>
 </li>
 
-<li Class="StorytellerCompProperties_RandomMain">
-  <allowedTargetTags>
-    <li>Map_PlayerHome</li>
-  </allowedTargetTags>
-
-  <minDaysPassed>7</minDaysPassed>
-  <mtbDays>3.5</mtbDays>
-  <maxThreatBigIntervalDays>30</maxThreatBigIntervalDays>
-
-  <minIncChancePopulationIntentFactor>0.2</minIncChancePopulationIntentFactor>
-  <randomPointsFactorRange>0.8~1.2</randomPointsFactorRange>
-  <skipThreatBigIfRaidBeacon>false</skipThreatBigIfRaidBeacon>
-
-  <categoryWeights>
-    <Misc>8.0</Misc>
-    <ThreatBig>0</ThreatBig>
-    <OrbitalVisitor>0</OrbitalVisitor>
-    <FactionArrival>4</FactionArrival>
-    <ThreatSmall>2</ThreatSmall>
-    <ShipChunkDrop>0</ShipChunkDrop>
-  </categoryWeights>
-</li>
-
 <li Class="StorytellerCompProperties_CategoryMTB">
   <category>Misc</category>
   <allowedTargetTags>
     <li>Map_PlayerHome</li>
   </allowedTargetTags>
   <minDaysPassed>7</minDaysPassed>
-  <mtbDays>5</mtbDays>
+  <mtbDays>3</mtbDays>
 </li>
 
 <li Class="StorytellerCompProperties_ShipChunkDrop"/>
@@ -251,7 +282,7 @@
 
 <li Class="StorytellerCompProperties_FactionInteraction">
   <incident>TraderCaravanArrival</incident>
-  <minDaysPassed>15</minDaysPassed>
+  <minDaysPassed>10</minDaysPassed>
   <baseIncidentsPerYear>12</baseIncidentsPerYear>
   <minSpacingDays>3</minSpacingDays>
   <allowedTargetTags>
@@ -261,7 +292,7 @@
 
 <li Class="StorytellerCompProperties_FactionInteraction">
   <incident>VisitorGroup</incident>
-  <minDaysPassed>15</minDaysPassed>
+  <minDaysPassed>10</minDaysPassed>
   <baseIncidentsPerYear>12</baseIncidentsPerYear>
   <minSpacingDays>3</minSpacingDays>
   <allowedTargetTags>
@@ -313,8 +344,8 @@
   <numIncidentsRange>1</numIncidentsRange>
   <acceptFractionByDaysPassedCurve>
     <points>
-      <li>(7, 0)</li>
-      <li>(14, 1)</li>
+      <li>(5, 0)</li>
+      <li>(10, 1)</li>
     </points>
   </acceptFractionByDaysPassedCurve>
   <minSpacingDays>3</minSpacingDays>
@@ -328,12 +359,12 @@
   <allowedTargetTags>
     <li>World</li>
   </allowedTargetTags>
-  <onDays>7</onDays>
+  <onDays>5</onDays>
   <numIncidentsRange>1</numIncidentsRange>
   <acceptFractionByDaysPassedCurve>
     <points>
-      <li>(7, 0)</li>
-      <li>(14, 1)</li>
+      <li>(5, 0)</li>
+      <li>(10, 1)</li>
     </points>
   </acceptFractionByDaysPassedCurve>
   <minSpacingDays>3</minSpacingDays>
@@ -347,8 +378,8 @@
   <allowedTargetTags>
     <li>World</li>
   </allowedTargetTags>
-  <minDaysPassed>3</minDaysPassed>
-  <mtbDays>7</mtbDays>
+  <minDaysPassed>7</minDaysPassed>
+  <mtbDays>3</mtbDays>
 </li>
 
     </comps>
